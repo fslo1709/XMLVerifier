@@ -28,8 +28,6 @@ None.
 
 Test cases for this function can be added in the file "testcases.txt"
 
-Testing can be done by running the command ```dotnet test```
-
 Examples of valid and invalid XML values:
 
 - Example 1:
