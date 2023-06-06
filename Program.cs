@@ -1,5 +1,4 @@
 ﻿using System;
-using MyXMLParser;
 
 class Program {
     static public void Main() {
@@ -16,7 +15,7 @@ class Program {
             Console.WriteLine("Error in case 3");
         }
         if (myParser.DetermineXML("<People age=”1”>hello world</People>")) {
-            Console.WriteLine("Error in case 1");
+            Console.WriteLine("Error in case 4");
         }
     }
 }
