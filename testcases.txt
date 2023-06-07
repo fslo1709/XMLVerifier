@@ -1,0 +1,12 @@
+<Design><Code>hello world</Code></Design>
+true
+<Design><Code>hello world</Code></Design><People>
+false
+<People><Design><Code>hello world</People></Code></Design>
+false
+<People age=”1”>hello world</People>
+false
+<<Design><Code>hello world</Code></Design>
+false
+<></Code>
+false

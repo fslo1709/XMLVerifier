@@ -2,18 +2,38 @@
 
 class Program {
     static public void Main() {
-        // Cases provided by the problem statement
-        if (!MyXMLParser.DetermineXML("<Design><Code>hello world</Code></Design>")) {
-            Console.WriteLine("Error in case 1");
+        string textfile = "./testcases.txt";
+
+        if (File.Exists(textfile)) {
+            bool stringLine = true;
+            string nextLine = "";
+            int count = 1;
+            string[] lines = File.ReadAllLines(textfile);
+            foreach(string line in lines) {
+                if (stringLine) {
+                    nextLine = line;
+                    stringLine = false;
+                }
+                else {
+                    bool truthValue;
+                    if (line.Equals("true")) {
+                        truthValue = true;
+                    }
+                    else if (line.Equals("false")) {
+                        truthValue = false;
+                    }
+                    else {
+                        Console.WriteLine("Unexpected value at case " + count.ToString());
+                        return;
+                    }
+                    if (MyXMLParser.DetermineXML(nextLine) != truthValue) {
+                        Console.WriteLine("Error in case " + count.ToString());
+                    }
+                    stringLine = true;
+                    count++;
+                }
+            }
         }
-        if (MyXMLParser.DetermineXML("<Design><Code>hello world</Code></Design><People>")) {
-            Console.WriteLine("Error in case 2");
-        }
-        if (MyXMLParser.DetermineXML("<People><Design><Code>hello world</People></Code></Design>")) {
-            Console.WriteLine("Error in case 3");
-        }
-        if (MyXMLParser.DetermineXML("<People age=”1”>hello world</People>")) {
-            Console.WriteLine("Error in case 4");
-        }
+        Console.WriteLine("Finished evaluating all cases");
     }
 }
