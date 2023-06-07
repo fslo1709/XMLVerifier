@@ -1,5 +1,13 @@
-﻿using System;
+﻿/// Author: Fernando Sebastian Lopez Ochoa
+using System;
 
+/// <summary>
+/// Main class to verify the parser works correctly
+/// Reads from the specified txt file all test cases. Each test case is composed
+/// of two lines: one for the xml string and the second one for the truth value
+/// of that xml string. True-false values are case sensitive, input them only
+/// in lower case. Output of the evaluation is displayed in the terminal.
+/// </summary>
 class Program {
     static public void Main() {
         string textfile = "./testcases.txt";
@@ -28,6 +36,9 @@ class Program {
                     }
                     if (MyXMLParser.DetermineXML(nextLine) != truthValue) {
                         Console.WriteLine("Error in case " + count.ToString());
+                    }
+                    else {
+                        Console.WriteLine("Case " + count.ToString() + " passed");
                     }
                     stringLine = true;
                     count++;

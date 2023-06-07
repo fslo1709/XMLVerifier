@@ -28,7 +28,11 @@ None.
 
 Test cases for this function can be added in the file "testcases.txt"
 
+Format of adding: one line with the xml string, next line with a ```true``` or ```false``` value
+
 Examples of valid and invalid XML values:
+
+#### Given test cases
 
 - Example 1:
 
@@ -53,3 +57,29 @@ Examples of valid and invalid XML values:
     Input: ```<People age="1">hello world</People>```
 
     Output: false
+
+#### My test cases
+
+- Example 5: No closing tags
+
+    Input: ```<People><Design>hello world```
+
+    Output: false
+
+- Example 6: The code considers all text between the angled brackets as the string of the tag, so the first tag would be read as "```<Design```"
+
+    Input: ```<<Design><Code>hello world</Code></Design>```
+
+    Output: false
+
+- Example 7: Empty tags are invalid
+
+    Input: ```<></Code>```
+
+    Output: false
+
+- Example 8: To verify an unopened angle bracket doesn't break the code. Logically, this means that it belongs to the string.
+
+    Input: ```<Design>>hello world</Design>```
+
+    Output: true

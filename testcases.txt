@@ -12,3 +12,5 @@ false
 false
 <></Code>
 false
+<Design>>hello world</Design>
+true
