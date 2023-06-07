@@ -21,12 +21,12 @@ class MyXMLParser {
 
         /// If there are no more pairs of angled brackets left, return null to break the parsing here
         if (firstIndex < 0 || secondIndex < 0) {
-            Tuple<string, string> response = new Tuple<string, string>(null, null);
+            Tuple<string, string> response = new Tuple<string, string>("", target);
             return response;
         }
         /// In case of an empty tag, returns an empty string
         else if (firstIndex == secondIndex - 1) {
-            Tuple<string, string> response = new Tuple<string, string>("", null);
+            Tuple<string, string> response = new Tuple<string, string>("", "");
             return response;
         }
         /// '>' could be part of another string, this parses it again starting from the 
@@ -36,7 +36,10 @@ class MyXMLParser {
         }
         // No errors, return the string contained between the angled brackets
         else {
-            return target.Substring(firstIndex + 1, secondIndex - firstIndex - 1);
+            string extractedTag = target.Substring(firstIndex + 1, secondIndex - firstIndex - 1);
+            string newSubstring = target.Substring(secondIndex + 1);
+            Tuple<string, string> response = new Tuple<string, string>(extractedTag, newSubstring);
+            return response;
         }
     }
     public static bool DetermineXML(string xml) {
@@ -44,33 +47,35 @@ class MyXMLParser {
         Stack<string> angleBracketsStack = new Stack<string>();
 
         while (true) {
-            string tag = getNextTagOf(tempXML);
-            if (tag == null) {
-                break;
-            }
-            else {
-                if (tag.Empty()) {
-                    return false;
-                }
-                if (tag[0] == '/') {
-                    if (angleBracketsStack.Count == 0) {
-                        return false;
-                    }
-                    string lastElement = angleBracketsStack.Pop();
-                    if (!lastElement.Equals(tag.Substring(1))) {
-                        return false;
-                    }
+            Tuple<string, string> tagResponse = getNextTagOf(tempXML);
+            string tag = tagResponse.Item1;
+            if (String.IsNullOrEmpty(tag)) {
+                if (tag.Equals("") && tempXML.Equals(tagResponse.Item2)) {
+                    break;
                 }
                 else {
-                    angleBracketsStack.Push(tag);
+                    return false;
                 }
             }
-            tempXML = tempXML.Substring(tempXML.IndexOf('>') + 1);
+            if (tag[0] == '/') {
+                if (angleBracketsStack.Count == 0) {
+                    return false;
+                }
+                string lastElement = angleBracketsStack.Pop();
+                if (!lastElement.Equals(tag.Substring(1))) {
+                    return false;
+                }
+            }
+            else {
+                angleBracketsStack.Push(tag);
+            }
+            tempXML = tagResponse.Item2;
         }
 
         if (angleBracketsStack.Count != 0) {
             return false;
         }
+
         return true;
     }
 }

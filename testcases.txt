@@ -6,6 +6,8 @@ false
 false
 <People age=”1”>hello world</People>
 false
+<People><Design>hello world
+false
 <<Design><Code>hello world</Code></Design>
 false
 <></Code>
